@@ -28,7 +28,7 @@
 | block       | string      | null: false                    |
 | building    | string      |                                |
 | phone_number| string      | null: false                    |
-| oders       | references  | null: false, foreign_key: true |
+| oder        | references  | null: false, foreign_key: true |
 
 ### Association
 - belongs_to :order
