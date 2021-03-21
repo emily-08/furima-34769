@@ -22,14 +22,16 @@
 
 | Colmn       | Type        | Options                        |
 |:------------|------------:|:------------------------------:|
-| postcode    | integer     | null: false                    |
-| prefecture  | string      | null: false                    |
+| postcode    | string      | null: false                    |
+| prefecture  | integer     | null: false                    |
 | city        | string      | null: false                    |
-| block       | integer     | null: false                    |
+| block       | string      | null: false                    |
 | building    | string      |                                |
-| phone_number| integer     | null: false                    |
-| user        | references  | null: false, foreign_key: true |
+| phone_number| string      | null: false                    |
+| oders       | references  | null: false, foreign_key: true |
 
+### Association
+- belongs_to :order
 
 ## itemsテーブル
 
@@ -61,3 +63,4 @@
 
 - belongs_to :item
 - belongs_to :user
+- has_one :address
