@@ -10,7 +10,5 @@ FactoryBot.define do
       family_name_kana {'ヤマダ'}
       first_name_kana {'タロウ'}
       birthday {'1997-08-11'}
-      created_at {}
-      updated_at {}
     end
 end
