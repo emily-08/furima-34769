@@ -3,12 +3,18 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable
-        #  , :validatable←削除したらユーザー情報を保存できた
 
-  validates :nickname, presence: true
-  validates :family_name, presence: true
-  validates :first_name, presence: true
-  validates :family_name_kana, presence: true
-  validates :first_name_kana, presence: true
-  validates :birthday, presence: true
+  with_options presence: true do
+    validates :password, format: { with: /(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{7,}/, message: '半角英数字混合で入力してください' }
+    validates :nickname
+    validates :birthday
+    with_options format: { with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/, message: '全角（漢字・ひらがな・カタカナでを入力してください' } do
+      validates :family_name
+      validates :first_name
+    end
+    with_options format: { with: /\A[\p{katakana} ー－&&[^ -~｡-ﾟ]]+\z/, message: '全角カタカナのみで入力して下さい' } do
+      validates :family_name_kana
+      validates :first_name_kana
+    end
+  end
 end
