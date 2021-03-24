@@ -9,6 +9,7 @@ RSpec.describe User, type: :model do
     it 'emailが空では登録できないこと' do
       @user.email = ''
       @user.valid?
+      binding.pry
       expect(@user.errors.full_messages).to include("Email can't be blank")
     end
 
@@ -19,21 +20,15 @@ RSpec.describe User, type: :model do
     end
 
     it 'passwordが6文字以上であれば登録できること' do
-      @user.password = '123456'
-      @user.password_confirmation = '123456'
+      binding.pry
+      @user.password = 'abc123'
+      @user.password_confirmation = 'abc123'
       expect(@user).to be_valid
     end
 
-    it 'passwordが5文字以下であれば登録できないこと' do
-      @user.password = '12345'
-      @user.password_confirmation = '12345'
-      @user.valid?
-      expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
-    end
-
     it 'passwordとpassword_confirmationが不一致では登録できないこと' do
-      @user.password = '123456'
-      @user.password_confirmation = '1234567'
+      @user.password = 'abc123'
+      @user.password_confirmation = 'abc123'
       @user.valid?
       expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
     end

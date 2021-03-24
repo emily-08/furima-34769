@@ -5,7 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable
 
   with_options presence: true do
-    validates :password, format: { with: /(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{7,}/, message: '半角英数字混合で入力してください' }
+    validates :email, uniqueness: true
+    validates :password, confirmation: true,length: { minimum: 6 }, format: { with: /(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{7,}/, message: '半角英数字混合で入力してください' }
     validates :nickname
     validates :birthday
     with_options format: { with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/, message: '全角（漢字・ひらがな・カタカナでを入力してください' } do
