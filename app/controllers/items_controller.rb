@@ -34,15 +34,14 @@ class ItemsController < ApplicationController
     end
   end
   
-  # 削除機能
-  # def destroy
-  #   item = Item.find(params[:id])
-  #   if user_signed_in? && current_user.id == item.user_id
-  #     if item.destroy
-  #       redirect_to root_path
-  #     end
-  #   end
-  # end
+  def destroy
+    item = Item.find(params[:id])
+    if current_user.id == item.user_id
+      if item.destroy
+        redirect_to root_path
+      end
+    end
+  end
 
   private
   def item_params
