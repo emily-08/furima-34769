@@ -13,6 +13,11 @@ RSpec.describe OrderAddress, type: :model do
       it "全て記入していれば保存ができること" do
         expect(@order_address).to be_valid
       end
+
+      it "建物名の記入なくても保存ができること" do
+        @order_address.building = ''
+        expect(@order_address).to be_valid
+      end
     end
 
     context '内容に問題がある場合' do
@@ -58,10 +63,34 @@ RSpec.describe OrderAddress, type: :model do
         expect(@order_address.errors.full_messages).to include("Phone number can't be blank")
       end
 
+      it 'phone_numberが半角数字のみ以外は保存できないこと' do
+        @order_address.phone_number = '123phone'
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("Phone number can't be blank")
+      end
+
+      it 'phone_numberが全角数字だと保存できないこと' do
+        @order_address.phone_number = '１２３４５６７８９０'
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("Phone number can't be blank")
+      end
+
       it "tokenが空では登録できないこと" do
         @order_address.token = ''
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("Token can't be blank")
+      end
+
+      it 'user_idが空では保存できないこと' do
+        @order_address.user_id = nil
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("User can't be blank")
+      end
+
+      it 'item_idが空では保存できないこと' do
+        @order_address.item_id = nil
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include("Item can't be blank")
       end
     end
   end
