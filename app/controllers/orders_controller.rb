@@ -4,16 +4,12 @@ class OrdersController < ApplicationController
   before_action :set_order_check, only: [:index, :create]
 
   def index
-    if set_order_check
-      @order_address = OrderAddress.new
-    else
-      redirect_to root_path
-    end
+    @order_address = OrderAddress.new
   end
 
   def create
     @order_address = OrderAddress.new(order_params)
-    if @order_address.valid? && set_order_check
+    if @order_address.valid?
       pay_item
       @order_address.save
       redirect_to root_path
@@ -42,6 +38,8 @@ class OrdersController < ApplicationController
   end
 
   def set_order_check
-    user_signed_in? && current_user.id =! @item.user_id && @item.order.blank?
+    unless user_signed_in? && current_user.id =! @item.user_id && @item.order.blank?
+      redirect_to root_path
+    end
   end
 end
