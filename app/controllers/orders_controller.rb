@@ -38,7 +38,7 @@ class OrdersController < ApplicationController
   end
 
   def set_order_check
-    unless user_signed_in? && current_user.id =! @item.user_id && @item.order.blank?
+    if @item.order.present? || current_user.id == @item.user_id
       redirect_to root_path
     end
   end
