@@ -1,9 +1,9 @@
 class OrdersController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: :index
 
   def index
-    if current_user
-      @item = Item.find(params[:item_id])
+    @item = Item.find(params[:item_id])
+    if user_signed_in? && current_user.id =! @item.user_id && @item.order.blank?
       @order_address = OrderAddress.new
     else
       redirect_to root_path
