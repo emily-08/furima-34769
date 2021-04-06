@@ -60,19 +60,19 @@ RSpec.describe OrderAddress, type: :model do
       it 'phone_numberが12桁では保存できないこと' do
         @order_address.phone_number = '123456789012'
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include("Phone number can't be blank")
+        expect(@order_address.errors.full_messages).to include("Phone number half-width numbers only(10or11 digits)")
       end
 
       it 'phone_numberが半角数字のみ以外は保存できないこと' do
         @order_address.phone_number = '123phone'
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include("Phone number can't be blank")
+        expect(@order_address.errors.full_messages).to include("Phone number half-width numbers only(10or11 digits)")
       end
 
       it 'phone_numberが全角数字だと保存できないこと' do
         @order_address.phone_number = '１２３４５６７８９０'
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include("Phone number can't be blank")
+        expect(@order_address.errors.full_messages).to include("Phone number half-width numbers only(10or11 digits)")
       end
 
       it "tokenが空では登録できないこと" do

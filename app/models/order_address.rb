@@ -6,7 +6,7 @@ class OrderAddress
     validates :postcode, format: {with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Include hyphen(-)"}
     validates :city
     validates :block
-    validates :phone_number, format: {with: /\A\d{10,11}\z/, message: "can't be blank"}
+    validates :phone_number, format: {with: /\A\d{10,11}\z/, message: 'half-width numbers only(10or11 digits)'}
     validates :item_id
     validates :user_id
     validates :token
